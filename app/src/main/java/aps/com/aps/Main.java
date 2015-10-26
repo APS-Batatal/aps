@@ -12,23 +12,25 @@ import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.opengl.CCGLSurfaceView;
 
 import aps.com.aps.scenes.TitleScreen;
+import aps.com.aps.settings.Device;
 
 public class Main extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         //ANDROID
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//retrato
         requestWindowFeature(Window.FEATURE_NO_TITLE);//sem título
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//fullscreen
 
-        //COCOS
+        //COCOS 2D
         CCGLSurfaceView glSurfaceView = new CCGLSurfaceView(this);
         setContentView(glSurfaceView);
         CCDirector.sharedDirector().attachInView(glSurfaceView);
 
         CCScene scene = new TitleScreen().scene();
-        CCDirector.sharedDirector().setScreenSize(CCDirector.sharedDirector().displaySize().width, CCDirector.sharedDirector().displaySize().height);
+        CCDirector.sharedDirector().setScreenSize(Device.width(), Device.height());
         CCDirector.sharedDirector().runWithScene(scene);
 
         super.onCreate(savedInstanceState);
