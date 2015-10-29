@@ -5,6 +5,8 @@ import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
 
+import aps.com.aps.Helper.Sound;
+import aps.com.aps.R;
 import aps.com.aps.settings.Device;
 
 /**
@@ -18,20 +20,26 @@ public class TitleScreen extends CCLayer {
 
         CCSprite background = new CCSprite("background.png");
         background.setPosition(Device.center());
-
-
+        background.setScaleX((Device.width() / background.getContentSize().width));
+        background.setScaleY((Device.height() / background.getContentSize().height));
         this.addChild(background);
-        //this.screenBg.setPosition(Device.center());
-        //this.screenBg.setPosition(CGPoint.ccp(0,0));
 
-        /*this.screenBg = new CCSprite("background.png");
-        this.screenBg.setPosition(Device.center());
-        this.addChild(screenBg);*/
+        CCSprite nave = new CCSprite("nave.png");
+        nave.setPosition(Device.center());
+        nave.setScale((Device.width() / nave.getContentSize().width) / 2);
+        this.addChild(nave);
+
+
+
         return scene;
     }
 
-    /*public TitleScreen(){
-    }*/
+    public TitleScreen(){
+        Sound sounds = new Sound();
+        sounds.add(R.raw.ramona);
+        sounds.load();
+        sounds.play(R.raw.ramona);
+    }
 
 
 }
