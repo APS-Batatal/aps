@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .gradle
 /local.properties
 /.idea/workspace.xml
@@ -5,3 +6,12 @@
 .DS_Store
 /build
 /captures
+=======
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+>>>>>>> 2b59293ae0db07adf8d1cec2400b9f0e3f3a5726
