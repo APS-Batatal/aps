@@ -8,7 +8,6 @@ import org.cocos2d.types.CGSize;
  * Created by CNOVanessa on 23/10/2015.
  */
 public abstract class Device {
-<<<<<<< HEAD
 
     //TODO: Remover
     public static CGPoint screenResolution(CGPoint gcPoint)
@@ -25,19 +24,8 @@ public abstract class Device {
     }
 
     //Points
-=======
->>>>>>> 2b59293ae0db07adf8d1cec2400b9f0e3f3a5726
     public static CGPoint center(){
         CGSize size = CCDirector.sharedDirector().winSize();
         return CGPoint.ccp(size.width/2.0f,size.height/2.0f);
     }
-<<<<<<< HEAD
-=======
-    public static Float width(){
-        return CCDirector.sharedDirector().displaySize().width;
-    }
-    public static Float height(){
-        return CCDirector.sharedDirector().displaySize().height;
-    }
->>>>>>> 2b59293ae0db07adf8d1cec2400b9f0e3f3a5726
 }
