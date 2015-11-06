@@ -9,16 +9,11 @@ import org.cocos2d.types.CGSize;
  */
 public abstract class Device {
 
-    //TODO: Remover
-    public static CGPoint screenResolution(CGPoint gcPoint)
-    {
-        return gcPoint;
-    }
-
     //Sizes
     public static float width() {
         return CCDirector.sharedDirector().winSize().width;
     }
+
     public static float height() {
         return CCDirector.sharedDirector().winSize().height;
     }

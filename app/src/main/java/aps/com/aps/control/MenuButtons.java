@@ -4,12 +4,10 @@ package aps.com.aps.control;
 import org.cocos2d.layers.CCLayer;
 import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.transitions.CCFadeTransition;
-import org.cocos2d.types.CGPoint;
-import aps.com.aps.scenes.GameScene;
+
 import aps.com.aps.Assets.Title;
-import static aps.com.aps.settings.Device.height;
-import static aps.com.aps.settings.Device.screenResolution;
-import static aps.com.aps.settings.Device.width;
+import aps.com.aps.scenes.GameScene;
+import aps.com.aps.settings.Device;
 
 /**
  * Created by CNOVanessa on 02/11/2015.
@@ -44,10 +42,10 @@ public class MenuButtons extends CCLayer implements IButtonDelegate {
     }
     private void setButtonspPosition() {
     // Buttons Positions
-        playButton.setPosition(screenResolution(CGPoint.ccp(width() / 2, height() - 250)));
-        highscoredButton.setPosition(screenResolution(CGPoint.ccp(width()/2, height() - 300 )));
-        helpButton.setPosition(screenResolution(CGPoint.ccp(width()/2, height()- 350 )));
-        soundButton.setPosition(screenResolution(CGPoint.ccp(width()/2-100, height()- 420 )) );
+        playButton.setPosition(Device.width() / 2, Device.height() - 250);
+        highscoredButton.setPosition(Device.width() / 2, Device.height() - 300);
+        helpButton.setPosition(Device.width() / 2, Device.height() - 350);
+        soundButton.setPosition(Device.width() / 2 - 100, Device.height() - 250);
     }
 
     @Override

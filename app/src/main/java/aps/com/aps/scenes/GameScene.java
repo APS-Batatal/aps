@@ -7,14 +7,13 @@ import org.cocos2d.nodes.CCSprite;
 
 import aps.com.aps.Assets.Title;
 import aps.com.aps.components.Lixeira;
-import aps.com.aps.control.ILayerDelegate;
 import aps.com.aps.settings.Device;
 
 
 /**
  * Created by CNOVanessa on 03/11/2015.
  */
-public class GameScene extends CCScene implements ILayerDelegate {
+public class GameScene extends CCScene {
     //TODO: Alterar
     private CCSprite background;
 
@@ -41,9 +40,5 @@ public class GameScene extends CCScene implements ILayerDelegate {
     private void addGameObjects(){
         this.lixeira = new Lixeira();
         this.lixeiraLayer.addChild(this.lixeira);
-    }
-    @Override
-    public void buttonClicked(CCLayer sender){
-        lixeira.moveLeft();
     }
 }
