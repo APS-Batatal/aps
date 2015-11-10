@@ -1,6 +1,5 @@
 package aps.com.aps.control;
 
-
 import android.view.MotionEvent;
 import org.cocos2d.events.CCTouchDispatcher;
 import org.cocos2d.layers.CCLayer;
@@ -9,20 +8,19 @@ import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGRect;
 
-
 /**
  * Created by CNOVanessa on 02/11/2015.
  */
 public class Button extends CCLayer{
-    private CCSprite buttonImage;
-    private IButtonDelegate delegate;
-    public Button(String buttonImage) {
-        this.setIsTouchEnabled(true);
-        this.buttonImage = CCSprite.sprite(buttonImage); addChild(this.buttonImage);
-    }
 
-    public void setDelegate(IButtonDelegate sender) {
-        this.delegate = sender;
+    private CCSprite image;
+    private IButtons delegate;
+
+    public Button(String image, IButtons sender) {
+        this.setIsTouchEnabled(true);
+        this.image = CCSprite.sprite(image);
+        delegate = sender;
+        addChild(this.image);
     }
 
     @Override
@@ -38,7 +36,7 @@ public class Button extends CCLayer{
 
         // Verifica toque no botao
 
-        if (CGRect.containsPoint(this.buttonImage.getBoundingBox(), touchLocation)) {
+        if (CGRect.containsPoint(this.image.getBoundingBox(), touchLocation)) {
             delegate.buttonClicked(this);
         }
         return true;
@@ -46,4 +44,3 @@ public class Button extends CCLayer{
 
 
 }
-

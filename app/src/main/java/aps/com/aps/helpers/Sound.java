@@ -1,4 +1,4 @@
-package aps.com.aps.Helper;
+package aps.com.aps.helpers;
 
 import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.sound.SoundEngine;
@@ -28,7 +28,7 @@ public class Sound {
             SoundEngine.sharedEngine().preloadEffect(CCDirector.sharedDirector().getActivity(), sound);
     }
 
-    //carregar um som específico
+    //Carregar um som específico
     public void load(int resource) {
         SoundEngine.sharedEngine().preloadEffect(CCDirector.sharedDirector().getActivity(), resource);
     }

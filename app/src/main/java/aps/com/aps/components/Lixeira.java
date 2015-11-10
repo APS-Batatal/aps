@@ -2,7 +2,7 @@ package aps.com.aps.components;
 
 import org.cocos2d.nodes.CCSprite;
 
-import aps.com.aps.Assets.Game;
+import aps.com.aps.assets.Game;
 import aps.com.aps.settings.Device;
 
 /**

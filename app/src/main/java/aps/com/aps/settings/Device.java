@@ -20,7 +20,6 @@ public abstract class Device {
 
     //Points
     public static CGPoint center(){
-        CGSize size = CCDirector.sharedDirector().winSize();
-        return CGPoint.ccp(size.width/2.0f,size.height/2.0f);
+        return CGPoint.ccp(width()/2.0f,height()/2.0f);
     }
 }

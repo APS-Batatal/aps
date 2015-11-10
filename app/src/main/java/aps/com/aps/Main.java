@@ -8,7 +8,7 @@ import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.opengl.CCGLSurfaceView;
 
-import aps.com.aps.scenes.TitleScene;
+import aps.com.aps.scenes.TitleScreen;
 
 
 public class Main extends Activity {
@@ -23,7 +23,7 @@ public class Main extends Activity {
         // configura CCDirector
         CCDirector.sharedDirector().setScreenSize(320, 480);
         // abre tela principal
-        CCScene scene = new TitleScene().scene();
+        CCScene scene = new TitleScreen().scene();
         CCDirector.sharedDirector().runWithScene(scene);
     }
 }

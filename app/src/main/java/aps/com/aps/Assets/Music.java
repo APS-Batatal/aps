@@ -1,4 +1,4 @@
-package aps.com.aps.Assets;
+package aps.com.aps.assets;
 
 import aps.com.aps.R;
 
