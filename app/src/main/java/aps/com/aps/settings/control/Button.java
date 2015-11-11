@@ -1,4 +1,4 @@
-package aps.com.aps.control;
+package aps.com.aps.settings.control;
 
 import android.view.MotionEvent;
 import org.cocos2d.events.CCTouchDispatcher;

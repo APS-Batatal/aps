@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 import aps.com.aps.assets.Title;
 import aps.com.aps.components.Lixo;
-import aps.com.aps.control.Button;
-import aps.com.aps.control.IButtons;
 import aps.com.aps.engine.LixosEngine;
 import aps.com.aps.engine.LixosEngineDelegate;
 import aps.com.aps.scenes.abstracts.Scene;

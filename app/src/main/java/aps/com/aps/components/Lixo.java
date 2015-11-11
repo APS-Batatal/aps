@@ -5,8 +5,6 @@ import org.cocos2d.types.CGPoint;
 
 import java.util.Random;
 
-import aps.com.aps.control.Button;
-import aps.com.aps.control.IButtons;
 import aps.com.aps.settings.Device;
 
 /**

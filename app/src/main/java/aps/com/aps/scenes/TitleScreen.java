@@ -6,8 +6,8 @@ import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.transitions.CCFadeTransition;
 
 import aps.com.aps.assets.Title;
-import aps.com.aps.control.Button;
-import aps.com.aps.control.IButtons;
+import aps.com.aps.settings.control.Button;
+import aps.com.aps.settings.control.IButtons;
 import aps.com.aps.scenes.abstracts.Scene;
 import aps.com.aps.scenes.abstracts.iScene;
 import aps.com.aps.settings.Device;
