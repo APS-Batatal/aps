@@ -7,6 +7,7 @@ import org.cocos2d.layers.CCLayer;
 import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.nodes.CCSprite;
+import org.cocos2d.transitions.CCFadeTransition;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGRect;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import aps.com.aps.assets.Title;
 import aps.com.aps.components.Lixo;
+import aps.com.aps.core.Global;
 import aps.com.aps.engine.LixosEngine;
 import aps.com.aps.engine.LixosEngineDelegate;
 import aps.com.aps.scenes.abstracts.Scene;
@@ -90,7 +92,19 @@ public class GameScene extends Scene implements LixosEngineDelegate{
         CGPoint location = CCDirector.sharedDirector().convertToGL(CGPoint.ccp(event.getX(), event.getY()));
         for (Lixo lixo:lixosArray) {
             if (CGRect.containsPoint((lixo.getBoundingBox()), location)) {
-                System.out.println(lixo.reciclavel);
+                if(lixo.reciclavel){
+                    Global.score.add(10);
+                } else {
+                    Global.vidas.remove(1);
+
+                    if(Global.vidas.getVidas() <= 0){
+                        CCDirector.sharedDirector().replaceScene(CCFadeTransition.transition(1.0f, GameOverScene.createScene()));
+                    }
+                }
+                lixo.remove();
+                //lixosArray.remove(lixo);
+                //System.out.println(Global.score.getPontos());
+                System.out.println("pontos:"+Global.score.getPontos()+" nível:"+Global.score.getNivel() + "vidas:"+ Global.vidas.getVidas());
             }
         }
         return super.ccTouchesEnded(event);

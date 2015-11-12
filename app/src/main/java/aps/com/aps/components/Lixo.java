@@ -1,10 +1,17 @@
 package aps.com.aps.components;
 
+import org.cocos2d.actions.instant.CCCallFunc;
+import org.cocos2d.actions.interval.CCFadeOut;
+import org.cocos2d.actions.interval.CCScaleBy;
+import org.cocos2d.actions.interval.CCSequence;
+import org.cocos2d.actions.interval.CCSpawn;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
+import aps.com.aps.core.Global;
 
 import java.util.Random;
 
+import aps.com.aps.core.Score;
 import aps.com.aps.settings.Device;
 
 /**
@@ -27,7 +34,24 @@ public class Lixo extends CCSprite {
     }
 
     public void update(float dt){
-        this.y -= 1;
-        this.setPosition(CGPoint.ccp(this.x,this.y));
+
+        this.y -= 1+(0.5* Global.score.getNivel());
+        this.setPosition(CGPoint.ccp(this.x, this.y));
+
+    }
+    public void remove(){
+        float dt = 0.2f;
+        CCScaleBy a1 = CCScaleBy.action(dt,0.5f);
+        CCFadeOut a2 = CCFadeOut.action(dt);
+        CCSpawn s1 = CCSpawn.actions(a1, a2);
+
+        //Função a ser executada após efeitos
+        CCCallFunc c1 = CCCallFunc.action(this,"removeMe");
+
+        //Roda efeito
+        this.runAction(CCSequence.actions(s1,c1));
+    }
+    public void removeMe(){
+        this.removeFromParentAndCleanup(true);
     }
 }
