@@ -6,10 +6,12 @@ import android.view.MotionEvent;
 import org.cocos2d.layers.CCLayer;
 import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCDirector;
+import org.cocos2d.nodes.CCLabel;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.transitions.CCFadeTransition;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGRect;
+import org.cocos2d.types.ccColor3B;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ import aps.com.aps.settings.Device;
 public class GameScene extends Scene implements LixosEngineDelegate{
     //TODO: Alterar
     private CCSprite background;
+    private CCLabel scoreLbl,vidasLbl,nivelLbl;
     private LixosEngine lixosEngine;
     private CCLayer lixosLayer;
     private ArrayList<Lixo> lixosArray;
@@ -42,6 +45,21 @@ public class GameScene extends Scene implements LixosEngineDelegate{
         this.lixosLayer = CCLayer.node();
         this.addChild(this.lixosLayer);
 
+        this.scoreLbl = CCLabel.makeLabel(Integer.toString(Global.score.getPontos()),"Arial",14);
+        this.scoreLbl.setPosition(Device.width() - 30, Device.height() - 20);
+        this.scoreLbl.setColor(new ccColor3B(0, 0, 0));
+        this.addChild(this.scoreLbl);
+
+        this.vidasLbl= CCLabel.makeLabel(Integer.toString(Global.vidas.getVidas()),"Arial",14);
+        this.vidasLbl.setPosition(Device.width()-30, Device.height()-40);
+        this.vidasLbl.setColor(new ccColor3B(0, 0, 0));
+        this.addChild(this.vidasLbl);
+
+        this.nivelLbl= CCLabel.makeLabel(Integer.toString(Global.score.getPontos()),"Arial",14);
+        this.nivelLbl.setPosition(30, Device.height()-20);
+        this.nivelLbl.setColor(new ccColor3B(0, 0, 0));
+        this.addChild(this.nivelLbl);
+
         this.addGameObjects();
 
         this.setIsTouchEnabled(true);
@@ -50,7 +68,7 @@ public class GameScene extends Scene implements LixosEngineDelegate{
     }
 
     public static CCScene createGame() {
-
+        Global.reset();
         CCScene scene = CCScene.node();
         GameScene layer = new GameScene();
         scene.addChild(layer);
@@ -59,7 +77,6 @@ public class GameScene extends Scene implements LixosEngineDelegate{
 
     @Override
     public void create(Lixo lixo) {
-
         this.lixosLayer.addChild(lixo);
         lixo.start();
         this.lixosArray.add(lixo);
@@ -102,9 +119,10 @@ public class GameScene extends Scene implements LixosEngineDelegate{
                     }
                 }
                 lixo.remove();
-                //lixosArray.remove(lixo);
-                //System.out.println(Global.score.getPontos());
-                System.out.println("pontos:"+Global.score.getPontos()+" nível:"+Global.score.getNivel() + "vidas:"+ Global.vidas.getVidas());
+                this.scoreLbl.setString(Integer.toString(Global.score.getPontos()));
+                this.vidasLbl.setString(Integer.toString(Global.vidas.getVidas()));
+                this.nivelLbl.setString(Integer.toString(Global.score.getNivel()));
+
             }
         }
         return super.ccTouchesEnded(event);

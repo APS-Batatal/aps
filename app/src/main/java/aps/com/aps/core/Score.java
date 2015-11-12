@@ -3,16 +3,18 @@ package aps.com.aps.core;
 /**
  * Created by dihgg on 11/11/15.
  */
-public class Score {
-    private int pontos = 0;
-    private int nivel = 1;
+public class Score implements IReset{
+    private final int DEFAULT_PONTOS = 0, DEFAULT_NIVEL = 1, DEFAULT_PROX_NIVEL = 30;
 
-    private int proxNivel = 30;
+    private int pontos,nivel,proxNivel;
 
     //Todo: criar sistema de highscore
     private int highscore = 0;
 
 
+    public Score(){
+        this.reset();
+    }
     public void add(int qty){
         this.pontos += qty;
         calculaNivel();
@@ -39,4 +41,11 @@ public class Score {
         return this.pontos;
     }
     public int getNivel(){return  this.nivel;}
+
+    @Override
+    public void reset() {
+        this.pontos = DEFAULT_PONTOS;
+        this.nivel = DEFAULT_NIVEL;
+        this.proxNivel = DEFAULT_PROX_NIVEL;
+    }
 }
