@@ -80,12 +80,11 @@ public class GameScene extends Scene implements LixosEngineDelegate{
         this.lixosLayer.addChild(lixo);
         lixo.start();
         this.lixosArray.add(lixo);
-
     }
 
     @Override
     public void remove(Lixo lixo) {
-
+        //this.lixosArray.remove(lixo);
     }
 
     private void addGameObjects(){
@@ -96,6 +95,7 @@ public class GameScene extends Scene implements LixosEngineDelegate{
     @Override
     public void onEnter() {
         super.onEnter();
+        this.schedule("update");
         this.startEngines();
     }
 
@@ -109,23 +109,41 @@ public class GameScene extends Scene implements LixosEngineDelegate{
         CGPoint location = CCDirector.sharedDirector().convertToGL(CGPoint.ccp(event.getX(), event.getY()));
         for (Lixo lixo:lixosArray) {
             if (CGRect.containsPoint((lixo.getBoundingBox()), location)) {
-                if(lixo.reciclavel){
-                    Global.score.add(10);
-                } else {
-                    Global.vidas.remove(1);
-
-                    if(Global.vidas.getVidas() <= 0){
-                        CCDirector.sharedDirector().replaceScene(CCFadeTransition.transition(1.0f, GameOverScene.createScene()));
+                if(!lixo.getClicked()){
+                    if(lixo.reciclavel){
+                        Global.score.add(10);
+                    } else {
+                        Global.vidas.remove(1);
                     }
                 }
                 lixo.remove();
-                this.scoreLbl.setString(Integer.toString(Global.score.getPontos()));
-                this.vidasLbl.setString(Integer.toString(Global.vidas.getVidas()));
-                this.nivelLbl.setString(Integer.toString(Global.score.getNivel()));
-
             }
         }
         return super.ccTouchesEnded(event);
+    }
+
+    public void update(float dt){
+
+        if(lixosArray.size() > 0){
+
+            for(int i = 0; i< lixosArray.size();i++){
+                Lixo lixo = lixosArray.get(i);
+
+                if (lixo.getPosition().y < 0){
+                    if(lixo.reciclavel){
+                        Global.vidas.remove(1);
+                    }
+                    lixosArray.remove(i);
+                }
+            }
+        }
+        if(Global.vidas.getVidas() <= 0){
+            CCDirector.sharedDirector().replaceScene(CCFadeTransition.transition(1.0f, GameOverScene.createScene()));
+        }
+        this.scoreLbl.setString(Integer.toString(Global.score.getPontos()));
+        this.vidasLbl.setString(Integer.toString(Global.vidas.getVidas()));
+        this.nivelLbl.setString(Integer.toString(Global.score.getNivel()));
+
     }
 
 }

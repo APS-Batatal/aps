@@ -21,7 +21,7 @@ public class LixosEngine extends CCLayer{
 
     public void lixosEngine(float dt){
         //sorte: 1 em 30 gera um novo meteoro!
-        if(new Random().nextInt(10)==0){
+        if(new Random().nextInt(30)==0){
             if(new Random().nextBoolean()){
                 this.getDelegate().create(new Lixo(Game.LIXO, true));
             } else {

@@ -9,9 +9,11 @@ import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
 import aps.com.aps.core.Global;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import aps.com.aps.core.Score;
+import aps.com.aps.scenes.GameScene;
 import aps.com.aps.settings.Device;
 
 /**
@@ -21,6 +23,7 @@ public class Lixo extends CCSprite {
 
     private float x, y;
     public boolean reciclavel;
+    private boolean clicked = false;
 
     public Lixo(String image,boolean reciclavel){
         super(image);
@@ -39,7 +42,9 @@ public class Lixo extends CCSprite {
         this.setPosition(CGPoint.ccp(this.x, this.y));
 
     }
+
     public void remove(){
+        clicked = true;
         float dt = 0.2f;
         CCScaleBy a1 = CCScaleBy.action(dt,0.5f);
         CCFadeOut a2 = CCFadeOut.action(dt);
@@ -49,9 +54,14 @@ public class Lixo extends CCSprite {
         CCCallFunc c1 = CCCallFunc.action(this,"removeMe");
 
         //Roda efeito
-        this.runAction(CCSequence.actions(s1,c1));
+        this.runAction(CCSequence.actions(s1, c1));
     }
     public void removeMe(){
         this.removeFromParentAndCleanup(true);
+    }
+
+    //GETTERS E SETTERS
+    public boolean getClicked(){
+        return  this.clicked;
     }
 }
