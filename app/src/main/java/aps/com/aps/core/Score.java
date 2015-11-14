@@ -17,6 +17,9 @@ public class Score implements IReset{
     }
     public void add(int qty){
         this.pontos += qty;
+        if(this.highscore <= this.pontos){
+            this.highscore = this.pontos;
+        }
         calculaNivel();
     }
     public void subtract(int qty){
@@ -41,6 +44,7 @@ public class Score implements IReset{
         return this.pontos;
     }
     public int getNivel(){return  this.nivel;}
+    public int getHighscore(){return this.highscore;}
 
     @Override
     public void reset() {

@@ -8,7 +8,6 @@ import aps.com.aps.helpers.Sound;
 /**
  * Created by dihgg on 05/11/15.
  */
-//TODO: criar classe padrão para cenas
 public abstract class Scene extends CCLayer implements iScene {
     protected Sound sound;
 

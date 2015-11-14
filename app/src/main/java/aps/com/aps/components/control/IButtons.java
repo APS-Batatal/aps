@@ -1,4 +1,4 @@
-package aps.com.aps.settings.control;
+package aps.com.aps.components.control;
 
 
 /**

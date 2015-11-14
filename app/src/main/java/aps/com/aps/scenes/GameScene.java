@@ -8,18 +8,20 @@ import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.nodes.CCLabel;
 import org.cocos2d.nodes.CCSprite;
-import org.cocos2d.transitions.CCFadeTransition;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGRect;
+import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor3B;
 
 import java.util.ArrayList;
 
+import aps.com.aps.assets.Fonts;
+import aps.com.aps.assets.Game;
 import aps.com.aps.assets.Title;
 import aps.com.aps.components.Lixo;
 import aps.com.aps.core.Global;
-import aps.com.aps.engine.LixosEngine;
-import aps.com.aps.engine.LixosEngineDelegate;
+import aps.com.aps.engines.LixosEngine;
+import aps.com.aps.engines.LixosEngineDelegate;
 import aps.com.aps.scenes.abstracts.Scene;
 import aps.com.aps.settings.Device;
 
@@ -31,36 +33,57 @@ import aps.com.aps.settings.Device;
 public class GameScene extends Scene implements LixosEngineDelegate{
     //TODO: Alterar
     private CCSprite background;
-    private CCLabel scoreLbl,vidasLbl,nivelLbl;
+    private CCLabel scoreLbl,vidasLbl,nivelLbl,highscoreLbl;
     private LixosEngine lixosEngine;
     private CCLayer lixosLayer;
     private ArrayList<Lixo> lixosArray;
 
     private GameScene() {
 
-        this.background = new CCSprite(Title.BACKGROUND);
+        this.background = new CCSprite(Game.BACKGROUND);
         this.background.setPosition(Device.center());
         this.addChild(this.background);
 
         this.lixosLayer = CCLayer.node();
         this.addChild(this.lixosLayer);
 
-        this.scoreLbl = CCLabel.makeLabel(Integer.toString(Global.score.getPontos()),"Arial",14);
-        this.scoreLbl.setPosition(Device.width() - 30, Device.height() - 20);
+        //HIGHSCORE
+
+        this.highscoreLbl= CCLabel.makeLabel(" ",CGSize.make(100, 20), CCLabel.TextAlignment.RIGHT,Fonts.PRESS_START_2P,14);
+        //this.highscoreLbl= CCLabel.makeLabel(Integer.toString(Global.score.getHighscore()), Fonts.PRESS_START_2P, 14);
+        this.highscoreLbl.setPosition(Device.width() - 60, Device.height() - 20);
+
+        this.highscoreLbl.setColor(new ccColor3B(0, 0, 0));
+        this.addChild(this.highscoreLbl);
+
+        //SCORE
+        this.scoreLbl = CCLabel.makeLabel(" ",CGSize.make(100, 20), CCLabel.TextAlignment.RIGHT,Fonts.PRESS_START_2P,14);
+        this.scoreLbl.setPosition(Device.width() - 60, Device.height() - 40);
         this.scoreLbl.setColor(new ccColor3B(0, 0, 0));
         this.addChild(this.scoreLbl);
 
-        this.vidasLbl= CCLabel.makeLabel(Integer.toString(Global.vidas.getVidas()),"Arial",14);
-        this.vidasLbl.setPosition(Device.width()-30, Device.height()-40);
+        //VIDAS
+        this.vidasLbl= CCLabel.makeLabel(" ", Fonts.PRESS_START_2P, 14);
+        this.vidasLbl.setPosition(Device.width() - 25, Device.height() - 70);
         this.vidasLbl.setColor(new ccColor3B(0, 0, 0));
         this.addChild(this.vidasLbl);
 
-        this.nivelLbl= CCLabel.makeLabel(Integer.toString(Global.score.getPontos()),"Arial",14);
-        this.nivelLbl.setPosition(30, Device.height()-20);
+        CCSprite vidaIcon = CCSprite.sprite(Game.HEART);
+        vidaIcon.setPosition(this.vidasLbl.getPosition().x - 30, this.vidasLbl.getPosition().y);
+        vidaIcon.setScale(vidaIcon.getScale()/12);
+        this.addChild(vidaIcon);
+
+        //NÍVEL
+        this.nivelLbl= CCLabel.makeLabel(" ",CGSize.make(200, 20), CCLabel.TextAlignment.LEFT,Fonts.PRESS_START_2P,14);
+        this.nivelLbl.setPosition(110, Device.height()-20);
         this.nivelLbl.setColor(new ccColor3B(0, 0, 0));
         this.addChild(this.nivelLbl);
 
-        this.addGameObjects();
+
+
+
+        this.lixosArray = new ArrayList<>();
+        this.lixosEngine = new LixosEngine();
 
         this.setIsTouchEnabled(true);
 
@@ -68,10 +91,9 @@ public class GameScene extends Scene implements LixosEngineDelegate{
     }
 
     public static CCScene createGame() {
-        Global.reset();
+        Global.restart();
         CCScene scene = CCScene.node();
-        GameScene layer = new GameScene();
-        scene.addChild(layer);
+        scene.addChild(new GameScene());
         return scene;
     }
 
@@ -83,13 +105,9 @@ public class GameScene extends Scene implements LixosEngineDelegate{
     }
 
     @Override
+    //TODO: acabar com esses delegades
     public void remove(Lixo lixo) {
         //this.lixosArray.remove(lixo);
-    }
-
-    private void addGameObjects(){
-        this.lixosArray = new ArrayList<>();
-        this.lixosEngine = new LixosEngine();
     }
 
     @Override
@@ -137,13 +155,14 @@ public class GameScene extends Scene implements LixosEngineDelegate{
                 }
             }
         }
-        if(Global.vidas.getVidas() <= 0){
-            CCDirector.sharedDirector().replaceScene(CCFadeTransition.transition(1.0f, GameOverScene.createScene()));
+        if(Global.vidas.getVidas() <= 0 && !Global.over){
+            Global.over = true;
+            Global.gotoScene(GameOverScene.createScene());
         }
-        this.scoreLbl.setString(Integer.toString(Global.score.getPontos()));
+        this.scoreLbl.setString("pts: "+Integer.toString(Global.score.getPontos()));
         this.vidasLbl.setString(Integer.toString(Global.vidas.getVidas()));
-        this.nivelLbl.setString(Integer.toString(Global.score.getNivel()));
-
+        this.nivelLbl.setString("nível: " + Integer.toString(Global.score.getNivel()));
+        this.highscoreLbl.setString("HI: " + Integer.toString(Global.score.getHighscore()));
     }
 
 }

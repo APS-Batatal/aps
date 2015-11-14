@@ -1,13 +1,12 @@
 package aps.com.aps.scenes;
 
 import org.cocos2d.layers.CCScene;
-import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.nodes.CCSprite;
-import org.cocos2d.transitions.CCFadeTransition;
 
 import aps.com.aps.assets.Title;
-import aps.com.aps.settings.control.Button;
-import aps.com.aps.settings.control.IButtons;
+import aps.com.aps.core.Global;
+import aps.com.aps.components.control.Button;
+import aps.com.aps.components.control.IButtons;
 import aps.com.aps.scenes.abstracts.Scene;
 import aps.com.aps.scenes.abstracts.iScene;
 import aps.com.aps.settings.Device;
@@ -15,12 +14,12 @@ import aps.com.aps.settings.Device;
 /**
  * Created by CNOVanessa on 23/10/2015.
  */
-public class TitleScreen extends Scene implements iScene, IButtons {
+public class TitleScene extends Scene implements iScene, IButtons {
     private CCSprite background;
     private Button playButton;
 
 
-    public TitleScreen() {
+    public TitleScene() {
         super();
         /*sound.add(Music.RAMONA);
         sound.load();
@@ -44,7 +43,9 @@ public class TitleScreen extends Scene implements iScene, IButtons {
     @Override
     public void buttonClicked(Button sender) {
         if (sender.equals(playButton)) {
-            CCDirector.sharedDirector().replaceScene(CCFadeTransition.transition(1.0f, GameScene.createGame()));
+            //Global.gotoScene(GameScene.createGame());
+            //TODO:remover
+            Global.gotoScene(TutorialScene.createScene());
         }
     }
 }

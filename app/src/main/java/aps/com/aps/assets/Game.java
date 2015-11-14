@@ -5,7 +5,9 @@ package aps.com.aps.assets;
  */
 public class Game {
     //TODO: alterar
-     public static  String LIXEIRA = "nave.png";
-     public static String LIXO = "meteor.png";
-     public static String LIXO2 = "nave.png";
+    public static String BACKGROUND = "background.png";
+    public static  String HEART = "heart.png";
+    public static  String LIXEIRA = "nave.png";
+    public static String LIXO = "meteor.png";
+    public static String LIXO2 = "nave.png";
 }
