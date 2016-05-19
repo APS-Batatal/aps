@@ -1,34 +1,47 @@
 package aps.com.aps.scenes;
 
 import org.cocos2d.layers.CCScene;
-import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.nodes.CCLabel;
 import org.cocos2d.nodes.CCSprite;
-import org.cocos2d.transitions.CCFadeTransition;
 import org.cocos2d.types.ccColor3B;
-
 import aps.com.aps.assets.Fonts;
+import aps.com.aps.assets.Music;
 import aps.com.aps.assets.Over;
 import aps.com.aps.core.Global;
 import aps.com.aps.scenes.abstracts.Scene;
 import aps.com.aps.settings.Device;
-import aps.com.aps.components.control.Button;
-import aps.com.aps.components.control.IButtons;
+import aps.com.aps.components.Button;
+import aps.com.aps.components.IButtons;
 
 /**
  * Created by dihgg on 11/11/15.
  */
 public class GameOverScene extends Scene implements IButtons{
     private Button restartBtn;
+    private Button musicBtn;
+    private Button exitBtn;
+
     public GameOverScene(){
+
+        sound.add(Music.CLICKSOUND);
+        sound.load();
+
         CCSprite background = new CCSprite(Over.BACKGROUND);
 
         background.setPosition(Device.center());
         this.addChild(background);
 
         restartBtn = new Button(Over.RESTART,this);
-        restartBtn.setPosition(Device.center().x, Device.center().y - 60);
+        restartBtn.setPosition(Device.center().x, Device.center().y - 70);
         this.addChild(restartBtn);
+
+        musicBtn = new Button(Over.SOUND,this);
+        musicBtn.setPosition(Device.center().x+140, Device.center().y +215);
+        this.addChild(musicBtn);
+
+        exitBtn = new Button(Over.EXIT, this);
+        exitBtn.setPosition(Device.width() / 2, Device.height() - 400);
+        this.addChild(exitBtn);
 
         CCSprite highscore = new CCSprite(Over.HIGHSCORE);
         highscore.setPosition(Device.center().x, Device.height()-50);
@@ -39,7 +52,7 @@ public class GameOverScene extends Scene implements IButtons{
         highscoreLbl.setPosition(Device.center().x, Device.height() - 100);
         this.addChild(highscoreLbl);
 
-        CCSprite score= new CCSprite(Over.HIGHSCORE);
+        CCSprite score= new CCSprite(Over.SCORE);
         score.setPosition(Device.center().x, Device.height()-150);
         this.addChild(score);
 
@@ -56,8 +69,27 @@ public class GameOverScene extends Scene implements IButtons{
 
     @Override
     public void buttonClicked(Button sender) {
-        if(sender.equals(restartBtn)){
+        if(sender.equals(restartBtn)) {
+            sound.pauseSound();
+            sound.playEffect(Music.STARTGAMEEFFECT);
+            if (sound.getIsPlaying()) {
+                sound.playSound(Music.GAMEMUSIC, true);
+            }
             Global.gotoScene(GameScene.createGame());
         }
+
+        if (sender.equals(musicBtn) && sound.getIsPlaying()){
+            sound.pauseSound();
+            sound.setIsPlaying(false);
+        }else if(sender.equals(musicBtn) && !sound.getIsPlaying()){
+            sound.setIsPlaying(true);
+            sound.playEffect(Music.CLICKSOUND);
+            sound.playSound(Music.GAMEOVERMUSIC, true);
+        }
+
+        if (sender.equals(exitBtn)) {
+            System.exit(0);
+        }
     }
+
 }

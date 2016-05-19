@@ -7,5 +7,4 @@ import aps.com.aps.components.Lixo;
  */
 public interface LixosEngineDelegate {
     public void create(Lixo lixo);
-    public void remove(Lixo lixo);
 }

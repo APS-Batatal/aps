@@ -5,15 +5,15 @@ import org.cocos2d.actions.interval.CCFadeOut;
 import org.cocos2d.actions.interval.CCScaleBy;
 import org.cocos2d.actions.interval.CCSequence;
 import org.cocos2d.actions.interval.CCSpawn;
+import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
-import aps.com.aps.core.Global;
+import org.cocos2d.types.CGRect;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import aps.com.aps.core.Score;
-import aps.com.aps.scenes.GameScene;
+import aps.com.aps.core.Global;
+import aps.com.aps.core.Runner;
 import aps.com.aps.settings.Device;
 
 /**
@@ -24,12 +24,28 @@ public class Lixo extends CCSprite {
     private float x, y;
     public boolean reciclavel;
     private boolean clicked = false;
+    private float leftPosition = Device.width()-240
+                , rightPosition = Device.width()-90;
+    private Lixo oldPosition;
 
     public Lixo(String image,boolean reciclavel){
         super(image);
         this.x = new Random().nextInt(Math.round(Device.width()));
+        CGPoint location = CCDirector.sharedDirector().convertToGL(CGPoint.ccp(this.x, this.y));
+
+        //Verifica posição do objeto na tela
+        if (this.x > rightPosition || this.x < leftPosition || CGRect.containsPoint(oldPosition.getBoundingBox(),location)){
+            while (this.x > rightPosition || this.x < leftPosition){
+                this.x = new Random().nextInt(Math.round(Device.width()));
+            }
+        }
+
+        this.oldPosition = this;
+
+
         this.y = Device.height();
         this.reciclavel = reciclavel;
+        this.setScale(this.getScale() / 5);
     }
 
     public void start(){
@@ -38,9 +54,10 @@ public class Lixo extends CCSprite {
 
     public void update(float dt){
 
-        this.y -= 1+(0.5* Global.score.getNivel());
-        this.setPosition(CGPoint.ccp(this.x, this.y));
-
+        if(Runner.check().isGamePlaying() && !Runner.check().isGamePaused()) {
+               this.y -= 1 + (0.5 * Global.score.getNivel());
+               this.setPosition(CGPoint.ccp(this.x, this.y));
+            }
     }
 
     public void remove(){
@@ -64,4 +81,5 @@ public class Lixo extends CCSprite {
     public boolean getClicked(){
         return  this.clicked;
     }
+
 }
